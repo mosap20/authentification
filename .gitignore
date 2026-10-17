@@ -1,0 +1,33 @@
+# Environnement virtuel
+venv/
+env/
+ENV/
+
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Base de données
+*.db
+*.sqlite
+*.sqlite3
+
+# Variables d'environnement
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log

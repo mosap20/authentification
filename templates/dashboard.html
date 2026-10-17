@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord - Authentification Sécurisée</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Tableau de bord</h1>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <div class="welcome-message">
+                <p>Bienvenue, <strong>{{ username }}</strong> !</p>
+                <p>Vous êtes connecté à votre espace sécurisé.</p>
+            </div>
+            
+            <div class="dashboard-actions">
+                <a href="{{ url_for('change_password') }}" class="btn btn-secondary">
+                    Modifier mon mot de passe
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">
+                    Se déconnecter
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - Authentification Sécurisée</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Inscription</h1>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        required 
+                        autofocus
+                        autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <!-- ASVS 6.2.1: Minimum 8 caractères -->
+                    <!-- ASVS 6.2.4: Vérification des mots de passe courants -->
+                    <!-- ASVS 6.2.5: Pas d'exigence obligatoire de caractères spéciaux -->
+                    <!-- ASVS 6.2.6: Masquer le mot de passe -->
+                    <!-- ASVS 6.2.7: Autoriser le collage et les gestionnaires -->
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        required
+                        minlength="8"
+                        autocomplete="new-password">
+                    <small class="form-text">Minimum 8 caractères. Évitez les mots de passe courants.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">Confirmer le mot de passe</label>
+                    <input 
+                        type="password" 
+                        id="confirm_password" 
+                        name="confirm_password" 
+                        required
+                        minlength="8"
+                        autocomplete="new-password">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">S'inscrire</button>
+            </form>
+            
+            <p class="text-center">
+                Déjà un compte ? <a href="{{ url_for('login') }}">Se connecter</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
