@@ -4,7 +4,7 @@ Application Web d'authentification sécurisée développée dans le cadre du mod
 
 ## 📋 Présentation du Projet
 
-Cette application Web démontre l'implémentation d'un système d'authentification conforme aux exigences du **niveau 1 de l'OWASP ASVS 5.0.0** (Application Security Verification Standard), particulièrement le chapitre V6 sur l'authentification.
+Cette application Web démontre l'implémentation d'un système d'authentification inspiré des exigences du **niveau 1 de l'OWASP ASVS 5.0.0** (Application Security Verification Standard), avec le chapitre V6 sur l'authentification comme référence pour ce TP. Le tableau ci-dessous décrit la couverture visée.
 
 L'application permet aux utilisateurs de :
 - Créer un compte avec des règles de mot de passe sécurisées
@@ -19,8 +19,14 @@ L'application permet aux utilisateurs de :
 - **Base de données** : SQLite 3
 - **Hachage de mots de passe** : Argon2id (via argon2-cffi)
 - **Frontend** : HTML5, CSS3 (sans framework JavaScript)
-- **Gestion des sessions** : Flask-Session intégré
+- **Gestion des sessions** : cookies de session signés par Flask
 - **Tests** : Pytest
+
+## Parcours de lecture
+
+- [Guide de démarrage](GUIDE_DEMARRAGE.md) pour configurer et lancer le TP.
+- [Explication des fichiers](EXPLICATION_FICHIERS.md) pour repérer le code Flask, les modèles HTML et les ressources.
+- [Tests](tests/test_app.py) pour voir les scénarios vérifiés automatiquement.
 
 ## 📦 Installation et Lancement
 
@@ -167,7 +173,7 @@ TP1_OWASP/
 | ID ASVS | Exigence | Implémentation | Vérification |
 |---------|----------|----------------|--------------|
 | **6.1.1** | Protection contre les attaques par force brute | Limitation à 5 tentatives en 5 minutes par compte et par IP (`check_rate_limit()` dans `app.py`) | Test : `test_rate_limiting()` - Faire 6 tentatives échouées |
-| **6.1.2** | Utilisation d'une bibliothèque de session standard | Flask-Session intégré avec configuration sécurisée (lignes 23-26 dans `app.py`) | Vérifier `app.config['SESSION_COOKIE_*']` |
+| **6.1.2** | Utilisation d'une bibliothèque de session standard | sessions signées de Flask avec configuration sécurisée (lignes 23-26 dans `app.py`) | Vérifier `app.config['SESSION_COOKIE_*']` |
 | **6.2.1** | Mots de passe d'au moins 8 caractères + hachage adapté (Argon2id) | Validation dans `validate_password()` + `PasswordHasher` (lignes 70-85, 30 dans `app.py`) | Test : `test_register_password_too_short()` et `test_password_not_stored_plaintext()` |
 | **6.2.2** | Demander le mot de passe actuel pour le modifier | Vérification dans `/change-password` (lignes 258-276 dans `app.py`) | Test : `test_change_password_requires_current()` |
 | **6.2.3** | Validation du nouveau mot de passe | Même fonction `validate_password()` pour inscription et modification (ligne 234 dans `app.py`) | Test : `test_change_password_validates_new()` |
